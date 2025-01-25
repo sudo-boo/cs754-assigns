@@ -1,0 +1,43 @@
+\title{Assignment 1: CS 754, Advanced Image Processing}
+\author{}
+\date{Due date: 4th Feb before 11:55 pm}
+
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,soul}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem}
+\usepackage[margin=0.5in]{geometry}
+\begin{document}
+\maketitle
+
+\textbf{Remember the honor code while submitting this (and every other) assignment. All members of the group should work on and \emph{understand} all parts of the assignment. We will adopt a \textbf{zero-tolerance policy} against any violation.}
+\\
+\\
+\textbf{Submission instructions:} You should ideally type out all the answers in MS office or Openoffice (with the equation editor) or, more preferably, using Latex. In either case, prepare a pdf file. Create a single zip or rar file containing the report, code and sample outputs and name it as follows: A1-IdNumberOfFirstStudent-IdNumberOfSecondStudent-IdNumberOfThirdStudent.zip. (If you are doing the assignment alone, the name of the zip file is A1-IdNumber.zip. If it is a group of two students, the name of the file should be  A1-IdNumberOfFirstStudent-IdNumberOfSecondStudent.zip). Upload the file on moodle BEFORE 11:55 pm on 4th Feb, which is the time that the submission is due. No assignments will be accepted after a cutoff deadline of 10 am on 5th Feb. Note that only one student per group should upload their work on moodle, although all group members will receive grades. Please preserve a copy of all your work until the end of the semester. \emph{If you have difficulties, please do not hesitate to seek help from me.} The time period between the time the submission is due and the cutoff deadline is to accommodate for any unprecedented issues. But no assignments will accepted after the cutoff deadline. 
+
+\textbf{Please write down the following declaration in your report:} The work submitted is our own, and we have adhered to the principles of academic honesty while completing and submitting this work. We have not referred to any unauthorized sources, and we have not used generative AI tools for the work submitted here. 
+
+\begin{enumerate}
+\item Consider a $m \times n$ sensing matrix $\boldsymbol{A}$ ($m < n$) with order-$s$ restricted isometry constant (RIC) of $\delta_s$. Let $\mathcal{S}$ be a subset of up to $s$ elements from $\{1,2,...,n\}$. Let $\boldsymbol{A}_{\mathcal{S}}$ be a $m  \times |S|$ sub-matrix of $\boldsymbol{A}$ with columns corresponding to indices in $\mathcal{S}$. Let $\lambda_{max}$ be the maximum of the maximal eigenvalue of any matrix $\boldsymbol{A}^T_{\mathcal{S}} \boldsymbol{A}_{\mathcal{S}}$ (i.e. the maximum is taken across all possible subsets of size up to $s$). Let $\lambda_{min}$ be the minimum of the minimal eigenvalue of any matrix $\boldsymbol{A}^T_{\mathcal{S}} \boldsymbol{A}_{\mathcal{S}}$ (i.e. the minimum is taken across all possible subsets of size up to $s$). Then prove that $\delta_s = \textrm{max}(1-\lambda_{min},\lambda_{max}-1)$. \textsf{[15 points]}
+
+\item Consider positive integers $s$ and $t$ such that $s < t$. Argue which of the following statements is true: (i) $\delta_s < \delta_t$, (ii) $\delta_t < \delta_s$, (iii) $\delta_s = \delta_t$, (iv) It is not possible to establish a precise equality/inequality between $\delta_s$ and $\delta_t$. \textsf{[10 points]}
+
+\item For a unique solution to the P1 problem, we require that $\delta_{2s} < 0.41$ as given in class. What is the corresponding upper bound for $\delta_{2s}$ in order for the P0 problem to give a unique solution? (Hint: Look at the proof of the uniqueness of the solutions to the P0 problem, and see the definition of RIC) \textsf{[15 points]}
+
+\item Please do a google search to find out some application of compressed sensing to efficiently sense some sort of signal. In your report, state the application and state which research paper or article you are referring to. Clearly explain how the measurements are acquired, what the underlying unknown signal is and what the measurement matrix is. Please exclude applications to compressive MRI, pooled testing or any compressive architecture which is covered in the slides on CS systems. 
+\textsf{[15 points]}
+
+\item Construct a synthetic image $\boldsymbol{f}$ of size $32 \times 32$ in the form of a sparse linear combination of $k$ randomly chosen 2D DCT basis vectors. Simulate $m$ compressive measurements of this image in the form $\boldsymbol{y} = \boldsymbol{\Phi} \text{vec}(\boldsymbol{f})$ where $\text{vec}(\boldsymbol{f})$ stands for a vectorized form of $\boldsymbol{f}$, $\boldsymbol{y}$ contains $m$ elements and $\boldsymbol{\Phi}$ has size $m \times 1024$. The elements of $\boldsymbol{\Phi}$ should be independently drawn from a Rademacher matrix (i.e. the values of the entries should independently be $-1$ and $+1$ with probability $0.5$). Your job is to implement the OMP algorithm to recover $\boldsymbol{f}$ from $\boldsymbol{y}, \boldsymbol{\Phi}$ for $k \in \{5,10,20,30,50,100,150,200\}$ and $m \in \{100,200,...,1000\}$. In the OMP iterations, you may assume knowledge of the true value of $k$. Each time, you should record the value of the RMSE given by $\|\text{vec}(\boldsymbol{f}) - \text{vec}(\boldsymbol{\hat{f}})\|_2/\|\text{vec}(\boldsymbol{f})\|_2$. For $k \in \{5,50,200\}$, you should plot a graph of RMSE versus $m$ and plot the reconstructed images with appropriate captions declaring the value of $k,m$. Also plot the ground truth image. For $m \in \{500,700\}$, you should plot a graph of RMSE versus $k$ and plot the reconstructed images with appropriate captions declaring the value of $k,m$. Also plot the ground truth image. Comment on the behaviour of these plots. Repeat all these tasks with the CoSAMP, another greedy algorithm from equation (10) of the paper `CoSaMP: iterative signal recovery from incomplete and inaccurate samples' which you can find at \url{https://dl.acm.org/doi/10.1145/1859204.1859229}. For implementing this algorithm, you should again assume knowledge of the true $k$. A local copy of this paper is also uploaded onto the homework folder. \textsf{[15 + 15 = 30 points]}
+
+\item This homework problem is inspired from one of the questions asked to me in class. Consider a signal $g$ with $n$ elements where $g$ is the Dirac comb consisting of spikes separated by $\sqrt{n}$ in time. Let $F$ be the support set of $g$ in the Fourier domain (i.e. the set of frequencies at which its Fourier transform is non-zero), and let $\Omega$ be the set of frequencies at which the Fourier transform of $g$ is measured. Let us assume that $\Omega$ is chosen uniformly at random. We want to derive lower bounds on the size of $\Omega$ in order to be able to reconstruct $g$ exactly from these measurements with a probability of at least $1-n^{-M}$ where $M > 0$. To this end, answer the following questions. Do not merely quote theorems or results, but answer this from first principles: \textsf{[5+5+5=15 points]}
+\begin{enumerate}
+\item If the intersection of $\Omega$ with $F$ is a null set, then we definitely have no chance of recovering $g$. What is the probability of this happening in terms of $|\Omega|, n, |F|$? Here $|F|$ stands for the cardinality of $F$. 
+\item Argue that this probability is lower bounded by $(1-|\Omega|/n)^{|F|}$. 
+\item Hence derive a lower bound on $|\Omega|$. Use the assumption that $|\Omega| \ll n$ so that $\log(1-|\Omega|/n) \approx -|\Omega|/n$. 
+
+\end{enumerate} 
+
+\end{enumerate}
+\end{document}
