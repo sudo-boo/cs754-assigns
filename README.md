@@ -1,7 +1,9 @@
-# CS 765 | Introduction to Blockchains, Cryptocurrencies and Smart Contracts
+# CS754: Advanced Image Processing (Spring '25)
+
+### Instructor: Ajit Rajwade
 
 <br>
 
 | Assignment    | Deadline |
 | :--------: | :------- |
-| Assignment 1      | 6 Sep 2025, 11:59 PM |
+| HW1      | 04 Feb, 11:55 PM (hard) |
